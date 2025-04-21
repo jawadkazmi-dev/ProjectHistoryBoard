@@ -1,0 +1,32 @@
+<div class="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4 mt-8">
+  <% Project.statuses.keys.each do |status| %>
+    <div class="bg-green-50 rounded-xl p-4 shadow">
+      <h2 class="text-xl font-bold text-green-800 mb-4"><%= status.humanize %></h2>
+      <% @projects.select { |p| p.status == status }.each do |project| %>
+        <div class="mb-6 bg-white rounded-xl p-4 shadow border border-green-100">
+  <h3 class="text-lg font-semibold text-green-700"><%= project.title %></h3>
+  <p class="text-gray-700 mt-1"><%= project.description %></p>
+  <p class="text-sm text-green-600 mt-2 font-medium"><%= project.status.humanize %></p>
+
+  <div class="mt-4 flex justify-end items-center space-x-4 text-green-600 text-lg">
+    <!-- View Icon -->
+    <%= link_to project_path(project), class: "hover:text-green-800", title: "View Details" do %>
+      <i class="fas fa-eye"></i>
+    <% end %>
+
+    <!-- Edit Icon -->
+    <%= link_to edit_project_path(project), class: "hover:text-green-800", title: "Edit" do %>
+      <i class="fas fa-edit"></i>
+    <% end %>
+
+    <!-- Delete Icon -->
+    <%= button_to project_path(project), method: :delete, data: { turbo: "false" }, class: "hover:text-red-700 text-red-500", title: "Delete", form: { class: "inline" } do %>
+      <i class="fas fa-trash-alt"></i>
+    <% end %>
+  </div>
+</div>
+
+      <% end %>
+    </div>
+  <% end %>
+</div>
