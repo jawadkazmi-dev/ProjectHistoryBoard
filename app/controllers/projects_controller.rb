@@ -47,7 +47,7 @@ class ProjectsController < ApplicationController
     def track_update_status(current_status)
       return if @project.status == current_status
 
-      @project.project_events.create!(old_status: current_status, new_status: project_params[:status], event_type: "status_change")
+      @project.project_events.create!(old_status: current_status, new_status: project_params[:status], event_type: "status_change",  user_id: current_user.id)
     end
 
     def set_project

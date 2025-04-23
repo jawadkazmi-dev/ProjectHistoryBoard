@@ -1,4 +1,4 @@
-<% if true %>
+<% if user_signed_in? %>
 <nav class="bg-white shadow-sm border-b border-green-100">
   <div class="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
     
@@ -22,14 +22,14 @@
       <div class="relative group">
         <button class="flex items-center px-4 py-2 rounded-full text-sm font-medium text-green-700 hover:bg-green-50">
           <i class="fa-solid fa-user mr-2"></i>
-          
+            <%= current_user.email %>
           <i class="fa-solid fa-chevron-down ml-2 text-xs"></i>
         </button>
+        
 
         <!-- Dropdown -->
-        <div class="absolute right-0 mt-2 hidden group-hover:flex flex-col bg-white shadow-lg border border-green-100 rounded-lg w-48 z-10">
-          <%= button_to "Sign Out", projects_path, method: :delete, data: { turbo: "false" },
-              class: "w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-800 rounded-t-lg" %>
+        <div class="absolute right-0 z-10 hidden group-hover:flex flex-col bg-white shadow-md  w-48 rounded-lg border border-gray-100">
+          <%= button_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class: "w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-800" %>
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
   <div class="max-w-screen-xl mx-auto px-4 py-3 flex justify-center">
     <div class="text-2xl font-extrabold text-green-700 tracking-tight">
       <i class="fa-solid fa-leaf mr-2"></i>
-      Project Tool
+      Project History Board
     </div>
   </div>
 </nav>

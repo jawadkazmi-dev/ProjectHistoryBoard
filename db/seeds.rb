@@ -1,9 +1,21 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+Faker::Config.locale = 'en'
+
+puts "Create super user"
+
+  FactoryBot.create(:user, email: 'admin@gmail.com', password: '12345678', password_confirmation: '12345678')
+  # Create 10 users using FactoryBot
+  2.times do
+    user = FactoryBot.create(:user)
+
+    # Create 5 projects for each user
+    5.times do
+      project = FactoryBot.create(:project)
+
+      3.times do
+        FactoryBot.create(:project_event, project: project, user: user, event_type: 'comment')
+        FactoryBot.create(:project_event, project: project, user: user, event_type: 'status_change')
+      end
+    end
+  end
+
+  puts "Seed data created successfully"
